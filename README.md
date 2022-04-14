@@ -1,11 +1,23 @@
 ## Para rodar a aplicação deve rodar o comando abaixo na pasta do projeto
 
-- 1 Baixar as dependências
+- 1 Realizar o clone da aplicação
+
+```bash
+  git clone https://github.com/jairoevaristo/pratica-web.git
+```
+
+- 2 Entrar na pasta do projeto
+
+```bash
+  cd pratica-web
+```
+
+- 3 Baixar as dependências
 
 ```bash
   npm install
 ```
-- 2 Subir o servidor web
+- 4 Subir o servidor web
 
 ```bash
   npm start
