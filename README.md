@@ -22,3 +22,5 @@
 ```bash
   npm start
 ```
+
+Por fim acesse o endereço `localhost:3000/home` onde o projeto está rodando
