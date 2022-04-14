@@ -1,4 +1,4 @@
-## Para rodar a aplicação deve rodar o comando abaixo na pasta do projeto
+## Para rodar a aplicação segui os passo seguir
 
 - 1 Realizar o clone da aplicação
 
