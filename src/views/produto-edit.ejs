@@ -1,28 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar produtos</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
-    <link rel="stylesheet" href="assets/css/style.css">
-
-</head>
 <body>
-   <form method="POST" action="/produto-editar">
-    <input type="hidden" name="id" value=<%= produtoEditado.id %> />
+  <%- include('partials/header')  -%> 
+   <form method="POST" action="/produto-editar" class="flex justify-center py-4 px-20 border rounded-sm flex-col w-full m-auto max-w-4xl">
+    <input type="hidden" name="id" class="border rounded p-2 mb-4 border-slate-300" value=<%= produtoEditado.id %> />
+    
     <label>Nome</label>
-    <input type="text" name="nome" value=<%= produtoEditado.nome %>  />
+    <input type="text" name="nome" class="border rounded p-2 mb-4 border-slate-300" value=<%= produtoEditado.nome %>  />
   
-  <label>Descrição</label>
-    <input type="text" name="descricao" value=<%= produtoEditado.descricao %> />
+    <label>Descrição</label>
+    <textarea rows="3" cols="50"  class="border rounded p-2 mb-4 border-slate-300 resize-none" name="descricao">
+      <%= produtoEditado.descricao %>
+    </textarea>
+    
+    <label>Preço</label>
+      <input type="text" class="border rounded p-2 mb-4 border-slate-300" name="preco" value=<%= produtoEditado.preco %> />
+
+    <select name="categoria" class="border rounded p-2 mb-4 border-slate-300">
+      <% categorias.forEach(element => { %>
+        <option 
+          selected=<%= produtoEditado.categoria === element.valor ? produtoEditado.categoria : element.valor %> 
+          value=<%= element.valor %> 
+        >
+          <%= produtoEditado.categoria === element.valor ? produtoEditado.categoria : element.valor %>
+        </option>
+      <% }) %>
+    </select>
   
-  <label>Preço</label>
-    <input type="text" name="preco" value=<%= produtoEditado.preco %> />
-  
-  <input type="submit" value="Editar" />  
+    <div class="flex justify-center w-full">
+      <input type="submit" value="Editar" class="mt-4 px-6 py-2 rounded cursor-pointer bg-slate-700 text-slate-200" />
+    </div>
   </form>
 </body>
 </html>

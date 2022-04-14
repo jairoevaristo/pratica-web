@@ -1,10 +1,18 @@
 <label>Nome</label>
-  <input type="text" name="nome" />
+  <input type="text" name="nome" class="border rounded p-2 mb-4 border-slate-300" />
 
 <label>Descrição</label>
-  <input type="text" name="descricao" />
+  <textarea class="border p-2 rounded mb-4 border-slate-300" maxlength="120" name="descricao" ></textarea>
 
 <label>Preço</label>
-  <input type="text" name="preco" />
+  <input class="border p-2 rounded mb-4 border-slate-300" type="text" name="preco" class="border rounded p-2" />
 
-<input type="submit" value="Cadastrar" />
+  <label>Categoria</label>
+  <select name="categoria" class="border border-slate-300 rounded p-2 mb-4">
+    <% categorias.forEach(element => { %>
+      <option class="h-20" value=<%= element.valor %>><%= element.valor %></option>
+    <% }) %>
+  </select>
+<div class="flex justify-center w-full">
+  <input type="submit" value="Cadastrar" class="mt-4 px-6 py-2 rounded cursor-pointer bg-slate-700 text-slate-200" />
+</div>

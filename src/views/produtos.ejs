@@ -1,54 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produtos</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
-    <link rel="stylesheet" href="assets/css/style.css">
-
-</head>
 <body>
-   <a href="/produto-criar">
-    <button>Cadastrar produto</button>
-   </a>
-    <table border="">
+
+   <%- include('partials/header')  -%> 
+   <div class="m-auto max-w-7xl flex jusitify-center flex-col">
+    <table class="hover:border-collapse table-auto border-collapse border border-slate-100 border-collapse mt-7">
         <thead>
         <tr>
-          <th>ID</th>
-          <th>Nome</th>
-          <th>Descrição</th>
-          <th>Preço</th>
-          <th>Editar</th>
+          <th class="py-2 px-8 bg-gray-200 text-zinc-600 font-normal">ID</th>
+          <th class="py-2 px-8 bg-gray-200 text-zinc-600 font-normal">Nome</th>
+          <th class="py-2 px-8 bg-gray-200 text-zinc-600 font-normal">Descrição</th>
+          <th class="py-2 px-8 bg-gray-200 text-zinc-600 font-normal">Categoria</th>
+          <th class="py-2 px-8 bg-gray-200 text-zinc-600 font-normal">Preço</th>
+          <th class="py-2 px-8 bg-gray-200 text-zinc-600 font-normal">Editar</th>
         </tr>
     </thead>
-        <tbody>
-            <% produtos.forEach(element => { %> <tr>
-             <td>
-                 <%= element.id.substring(0, 6) %> 
-             </td>
-               <td>
-                <%= element.nome %> 
-             </td>
+        <tbody class="text-center w-5">
+            <% produtos.forEach(element => { %> 
+            <tr>
+                <td class="font-normal text-lg py-3 px-3">
+                    <%= element.id.substring(0, 6) %> 
+                </td>
+                <td class="font-normal text-lg">
+                    <%= element.nome %> 
+                </td>
 
-             <td>
-                <%= element.descricao %> 
-             </td>
-
-             <td>
-                R$ <%= element.preco %> 
-             </td>
-             <td> <a href=<%=`/produto-editar?id=${element.id}` %>>
-                <i class="fa fa-edit"></i>
-            </a>
-             </td>
-             </td>
+                <td class="font-normal text-lg">
+                    <%= element.descricao %> 
+                </td>
+                <td class="font-normal text-lg">
+                    <%= element.categoria %> 
+                </td>
+                <td class="font-normal text-lg">
+                    R$ <%= element.preco %> 
+                </td>
+                <td> <a href=<%=`/produto-editar?id=${element.id}` %>>
+                    <div class="flex justify-center">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path></svg>
+                    </div>
+                </a>
+                </td>
+                </td>
             </tr>
             <% }) %>
         
         </tbody>
-      </table> 
+    </table>
+    <button class="mt-6 ml-3">
+        <a class="p-2 bg-slate-700 rounded-lg text-slate-200" href="/produto-criar">
+            Cadastrar produto
+        </a>
+    </button>
+</div>
 </body>
 </html>

@@ -1,44 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Categorias</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
-    <link rel="stylesheet" href="assets/css/style.css">
 
-</head>
 <body>
-    <form method="POST" action="/categoria-salvar">
+    <%- include('partials/header')  -%> 
+    <form method="POST" action="/categoria-salvar" class="flex justify-center py-4 px-20 border rounded-sm flex-col w-full m-auto max-w-4xl mb-5">
         <label>Texto</label>
-        <input name="valor" text="text" />
+        <input class="border rounded p-2 mb-4 border-slate-300" name="valor" text="text" />
         
         <label>Chave</label>
-        <input name="chave" text="text" />
-        <input type="submit" value="Salvar" />
+        <input class="border rounded p-2 mb-4 border-slate-300" name="chave" text="text" />
+        <div class="flex justify-center w-full">
+            <input type="submit" value="Salvar" class="mt-4 px-6 py-2 rounded cursor-pointer bg-slate-700 text-slate-200" />
+          </div>
     </form>
-    <table border="">
-        <thead>
-        <tr>
-          <th>Chave</th>
-          <th>Valor</th>
-          <th>Deletar</th>
-        </tr>
-    </thead>
-        <tbody>
+    <div class="m-auto max-w-6xl flex jusitify-center flex-col">
+        <table class="hover:border-collapse table-auto border-collapse border border-slate-100 border-collapse mt-7">
+            <thead>
+            <tr>
+              <th class="py-2 px-8 bg-gray-200 text-zinc-600 font-normal">Chave</th>
+              <th class="py-2 px-8 bg-gray-200 text-zinc-600 font-normal">Valor</th>
+              <th class="py-2 px-8 bg-gray-200 text-zinc-600 font-normal">Deletar</th>
+            </tr>
+        </thead>
+            <tbody class="text-center w-5">
             <% categorias.forEach(element => { %> <tr>
-             <td>
+             <td class="font-normal text-lg py-3 px-3">
                  <%= element.chave %> 
              </td>
-               <td>
-
+               <td class="font-normal text-lg py-3 px-3">
                 <%= element.valor %> 
              </td>
-             <td> <a href=<%=`/categoria-deletar/${element.chave}` %>>
-                <i class="fa fa-trash"></i>
-            </a>
+             <td> 
+                <a href=<%=`/categoria-deletar/${element.chave}` %>>
+                    <div class="flex justify-center">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                    </div>
+                </a>
              </td>
             </tr>
             <% }) %>
