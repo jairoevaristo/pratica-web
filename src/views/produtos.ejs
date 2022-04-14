@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+</head>
+<body>
+   <a href="/produto-criar">
+    <button>Cadastrar produto</button>
+   </a>
+    <table border="">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Descrição</th>
+          <th>Preço</th>
+          <th>Editar</th>
+        </tr>
+    </thead>
+        <tbody>
+            <% produtos.forEach(element => { %> <tr>
+             <td>
+                 <%= element.id.substring(0, 6) %> 
+             </td>
+               <td>
+                <%= element.nome %> 
+             </td>
+
+             <td>
+                <%= element.descricao %> 
+             </td>
+
+             <td>
+                R$ <%= element.preco %> 
+             </td>
+             <td> <a href=<%=`/produto-editar?id=${element.id}` %>>
+                <i class="fa fa-edit"></i>
+            </a>
+             </td>
+             </td>
+            </tr>
+            <% }) %>
+        
+        </tbody>
+      </table> 
+</body>
+</html>

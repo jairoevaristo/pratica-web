@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categorias</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+</head>
+<body>
+    <form method="POST" action="/categoria-salvar">
+        <label>Texto</label>
+        <input name="valor" text="text" />
+        
+        <label>Chave</label>
+        <input name="chave" text="text" />
+        <input type="submit" value="Salvar" />
+    </form>
+    <table border="">
+        <thead>
+        <tr>
+          <th>Chave</th>
+          <th>Valor</th>
+          <th>Deletar</th>
+        </tr>
+    </thead>
+        <tbody>
+            <% categorias.forEach(element => { %> <tr>
+             <td>
+                 <%= element.chave %> 
+             </td>
+               <td>
+
+                <%= element.valor %> 
+             </td>
+             <td> <a href=<%=`/categoria-deletar/${element.chave}` %>>
+                <i class="fa fa-trash"></i>
+            </a>
+             </td>
+            </tr>
+            <% }) %>
+        
+        </tbody>
+      </table> 
+</body>
+</html>
