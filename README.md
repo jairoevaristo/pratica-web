@@ -1,4 +1,4 @@
-## Para rodar a aplicação segui os passo seguir
+## Para rodar a aplicação siga os passo seguir
 
 - 1 Realizar o clone da aplicação
 
