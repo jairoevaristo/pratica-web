@@ -4,16 +4,17 @@ let produtos = [];
 
 function addProduto({ nome, descricao, preco, categoria }) {
   const id = randomUUID();
-  produtos.push({ id, nome, descricao, preco, categoria });
+  produtos.push({ id, nome, descricao: descricao.trim(), preco, categoria });
 }
 
 function editProduto({ id, nome, descricao, preco, categoria }) {
+  console.log(descricao);
   const produto = produtos.map((item) => {
     if (item.id === id) {
       return {
         id: item.id,
         nome: nome || item.nome,
-        descricao: descricao || item.descricao,
+        descricao: descricao.trim() || item.descricao.trim(),
         preco: preco || item.preco,
         categoria: categoria || item.categoria,
       };

@@ -4,11 +4,13 @@
 <body>
     <%- include('partials/header')  -%> 
     <form method="POST" action="/categoria-salvar" class="flex justify-center py-4 px-20 border rounded-sm flex-col w-full m-auto max-w-4xl mb-5">
-        <label>Texto</label>
-        <input class="border rounded p-2 mb-4 border-slate-300" name="valor" text="text" />
-        
+        <h1 class="font-bold text-slate-700 text-2xl mb-4">Categorias</h1>
         <label>Chave</label>
         <input class="border rounded p-2 mb-4 border-slate-300" name="chave" text="text" />
+        
+        <label>Valor</label>
+        <input class="border rounded p-2 mb-4 border-slate-300" name="valor" text="text" />
+
         <div class="flex justify-center w-full">
             <input type="submit" value="Salvar" class="mt-4 px-6 py-2 rounded cursor-pointer bg-slate-700 text-slate-200" />
           </div>

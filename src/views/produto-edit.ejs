@@ -2,16 +2,16 @@
 <html lang="en">
 <body>
   <%- include('partials/header')  -%> 
-   <form method="POST" action="/produto-editar" class="flex justify-center py-4 px-20 border rounded-sm flex-col w-full m-auto max-w-4xl">
+  
+  <form method="POST" action="/produto-editar" class="flex justify-center py-4 px-20 border rounded-sm flex-col w-full m-auto max-w-4xl">
+    <h1 class="font-bold text-slate-700 text-2xl mb-4">Editar produto</h1>
     <input type="hidden" name="id" class="border rounded p-2 mb-4 border-slate-300" value=<%= produtoEditado.id %> />
     
     <label>Nome</label>
     <input type="text" name="nome" class="border rounded p-2 mb-4 border-slate-300" value=<%= produtoEditado.nome %>  />
   
     <label>Descrição</label>
-    <textarea rows="3" cols="50"  class="border rounded p-2 mb-4 border-slate-300 resize-none" name="descricao">
-      <%= produtoEditado.descricao %>
-    </textarea>
+    <textarea maxlength="120" rows="2" cols="20" class="border rounded p-2 mb-4 border-slate-300 resize-none" name="descricao"><%= produtoEditado.descricao.trim() %></textarea>
     
     <label>Preço</label>
       <input type="text" class="border rounded p-2 mb-4 border-slate-300" name="preco" value=<%= produtoEditado.preco %> />
@@ -19,15 +19,16 @@
     <select name="categoria" class="border rounded p-2 mb-4 border-slate-300">
       <% categorias.forEach(element => { %>
         <option 
-          selected=<%= produtoEditado.categoria === element.valor ? produtoEditado.categoria : element.valor %> 
+          <%= element.valor === produtoEditado.categoria ? 'selected' : ''%> 
           value=<%= element.valor %> 
         >
-          <%= produtoEditado.categoria === element.valor ? produtoEditado.categoria : element.valor %>
+          <%= element.valor %>
         </option>
       <% }) %>
     </select>
   
     <div class="flex justify-center w-full">
+      <a href="/produtos" class="mt-4 px-6 py-2 rounded cursor-pointer border border-slate-700 text-slate-700 hover:bg-slate-700 hover:text-slate-200 mr-4 transition-all">Voltar</a>
       <input type="submit" value="Editar" class="mt-4 px-6 py-2 rounded cursor-pointer bg-slate-700 text-slate-200" />
     </div>
   </form>
