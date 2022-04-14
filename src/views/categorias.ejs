@@ -2,7 +2,10 @@
 <html lang="en">
 
 <body>
-    <%- include('partials/header')  -%> 
+    <%- include('partials/header')  -%>
+    <div class="w-full m-auto max-w-4xl mb-5">
+        <span class="text-green-700 p-4 rounded font-light text-2xl"><%=message%></span>
+    </div>
     <form method="POST" action="/categoria-salvar" class="flex justify-center py-4 px-20 border rounded-sm flex-col w-full m-auto max-w-4xl mb-5">
         <h1 class="font-bold text-slate-700 text-2xl mb-4">Categorias</h1>
         <label>Chave</label>

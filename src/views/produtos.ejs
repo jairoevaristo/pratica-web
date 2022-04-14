@@ -4,7 +4,11 @@
 
    <%- include('partials/header')  -%> 
    <div class="m-auto max-w-7xl flex jusitify-center flex-col">
-       <span class="font-bold text-slate-700 text-2xl mb-4">
+   
+    <div>
+        <span class="text-green-700 p-4 rounded font-light text-2xl"><%=message%></span>
+    </div>
+          <span class="font-bold text-slate-700 text-2xl mb-4">
         <%= produtos.length <= 0 ? 'Nenhum produto cadastrado' : ''%>
        </span>
     <table class="hover:border-collapse table-auto border-collapse border border-slate-100 border-collapse mt-7">
