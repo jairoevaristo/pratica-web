@@ -12,14 +12,11 @@ app.set("views", "./src/views");
 app.use(express.static(__dirname + "../../public"));
 
 app.get("/home", (req, res) => {
-  res.render("home", {
-    title: "loja de produtos",
-    message: "o mais barato é aqui!",
-  });
+  res.render("home", { title: "Loja de Produtos" });
 });
 
-app.get("/produtos", (req, res) => {
-  res.render("produtos", { categorias: getCategoria() });
+app.get("/sobre", (req, res) => {
+  res.render("sobre");
 });
 
 app.listen(3000);

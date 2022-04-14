@@ -4,6 +4,9 @@
 
    <%- include('partials/header')  -%> 
    <div class="m-auto max-w-7xl flex jusitify-center flex-col">
+       <span class="font-bold text-slate-700 text-2xl mb-4">
+        <%= produtos.length <= 0 ? 'Nenhum produto cadastrado' : ''%>
+       </span>
     <table class="hover:border-collapse table-auto border-collapse border border-slate-100 border-collapse mt-7">
         <thead>
         <tr>
@@ -47,7 +50,7 @@
         </tbody>
     </table>
     <button class="mt-6 ml-3">
-        <a class="p-2 bg-slate-700 rounded-lg text-slate-200" href="/produto-criar">
+        <a class="p-2 bg-slate-700 rounded text-slate-200" href="/produto-criar">
             Cadastrar produto
         </a>
     </button>

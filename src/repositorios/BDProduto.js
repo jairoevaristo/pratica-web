@@ -8,7 +8,6 @@ function addProduto({ nome, descricao, preco, categoria }) {
 }
 
 function editProduto({ id, nome, descricao, preco, categoria }) {
-  console.log(descricao);
   const produto = produtos.map((item) => {
     if (item.id === id) {
       return {

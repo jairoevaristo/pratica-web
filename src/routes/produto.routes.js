@@ -17,7 +17,6 @@ routerProduto.get("/produtos", (req, res) => {
 
 routerProduto.get("/produto-editar", (req, res) => {
   const { id } = req.query;
-  console.log(findProdutoById(id).descricao);
   res.render("produto-edit", {
     produtoEditado: findProdutoById(id),
     categorias: getCategoria(),
