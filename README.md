@@ -1,5 +1,10 @@
 ## Para rodar a aplicação siga os passo seguir
 
+ **ATENÇÃO**
+ - Para clonar o repositório sem a parte de estilização e css é necessário selecionar a branch `feature/old-project`, logo certifique-se que foi selecionando essa branch antes de fazer o clone repositório.
+
+ ![branch](./.github/branch.png)
+
 - 1 Realizar o clone da aplicação
 
 ```bash
