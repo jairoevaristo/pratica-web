@@ -1,14 +1,14 @@
 <label>Nome</label>
-  <input type="text" name="nome" class="border rounded p-2 mb-4 border-slate-300" />
+  <input type="text" name="nome" class="border outline-none border-gray-300 rounded p-2 mb-4 focus:ring-2 focus:border-blue-200 focus:ring-blue-200 transition duration-300 ease-in-out" />
 
 <label>Descrição</label>
-  <textarea class="border p-2 rounded mb-4 border-slate-300" maxlength="120" name="descricao" ></textarea>
+  <textarea class="border outline-none border-gray-300 rounded p-2 mb-4 focus:ring-2 focus:border-blue-200 focus:ring-blue-200 transition duration-300 ease-in-out" maxlength="120" name="descricao" ></textarea>
 
 <label>Preço</label>
-  <input class="border p-2 rounded mb-4 border-slate-300" type="text" name="preco" class="border rounded p-2" />
+  <input class="border outline-none border-gray-300 rounded p-2 mb-4 focus:ring-2 focus:border-blue-200 focus:ring-blue-200 transition duration-300 ease-in-out" type="text" name="preco" class="border rounded p-2" />
 
   <label>Categoria</label>
-  <select name="categoria" class="border border-slate-300 rounded p-2 mb-4">
+  <select name="categoria" class="border outline-none border-gray-300 rounded p-2 mb-4 focus:ring-2 focus:border-blue-200 focus:ring-blue-200 transition duration-300 ease-in-out">
     <% categorias.forEach(element => { %>
       <option class="h-20" value=<%= element.valor %>><%= element.valor %></option>
     <% }) %>
