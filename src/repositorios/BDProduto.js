@@ -1,9 +1,8 @@
-const { randomUUID } = require("crypto");
-
 let produtos = [];
+let id = 0;
 
 function addProduto({ nome, descricao, preco, categoria }) {
-  const id = randomUUID();
+  id += 1;
   produtos.push({ id, nome, descricao: descricao.trim(), preco, categoria });
 }
 
@@ -27,7 +26,9 @@ function editProduto({ id, nome, descricao, preco, categoria }) {
 }
 
 function findProdutoById(id) {
-  const produto = produtos.find((item) => item.id === id);
+  console.log(produtos);
+  const produto = produtos.find((item) => item.id === Number(id));
+  console.log(produto);
   return produto;
 }
 
