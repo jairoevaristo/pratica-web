@@ -8,9 +8,9 @@ function addProduto({ nome, descricao, preco, categoria }) {
 
 function editProduto({ id, nome, descricao, preco, categoria }) {
   const produto = produtos.map((item) => {
-    if (item.id === id) {
+    if (item.id === Number(id)) {
       return {
-        id: item.id,
+        id: Number(item.id),
         nome: nome || item.nome,
         descricao: descricao.trim() || item.descricao.trim(),
         preco: preco || item.preco,
@@ -26,9 +26,7 @@ function editProduto({ id, nome, descricao, preco, categoria }) {
 }
 
 function findProdutoById(id) {
-  console.log(produtos);
   const produto = produtos.find((item) => item.id === Number(id));
-  console.log(produto);
   return produto;
 }
 
