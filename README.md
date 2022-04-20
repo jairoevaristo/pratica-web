@@ -17,6 +17,7 @@
 ```bash
   npm install
 ```
+<hr>
 
  **ATENÇÃO**
   - Para ter acesso ao projeto sem a parte de estilização e css é necessário acessar a branch `feature/old-project`. Execute o comando abaixo e siga o restante dos passos.
@@ -24,6 +25,7 @@
 ```bash
   git checkout feature/old-project
 ``` 
+<hr>
 
 - 4 Subir o servidor web
 
