@@ -38,7 +38,6 @@
         </thead>
             <tbody class="text-center w-5">
             <% categorias.forEach(({ chave, valor, camposCustomizados }) => { %> 
-            <input id="chave" type="hidden" value=<%= chave %> />
             <tr>
              <td class="font-normal border-b border-gray-200 text-lg py-3 px-3">
                  <%= chave %> 
@@ -52,8 +51,9 @@
                     <p><%= element %></p> 
                 <% }) %>
              </td>
+           
              <td class="border-b border-gray-200"> 
-                <button type="button" onclick="deleteCategoria()" id="button-delete">
+                <button type="button" onclick="deleteCategoria(<%= chave %>)" id="button-delete"=>
                     <div class="flex justify-center">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                     </div>
@@ -64,8 +64,6 @@
         
         </tbody>
       </table>
-
-      
 
     <div class="container mx-auto px-4">
         <div id="popup-modal" class="hidden flex overflow-y-auto overflow-x-hidden fixed z-50 md:inset-0 h-modal md:h-full justify-center items-center">
@@ -103,12 +101,13 @@
         const confirm = document.querySelector('#confirm-delete');  
         const cancel = document.querySelector('#cancel-delete');  
         const buttonDelete = document.querySelector('#button-delete'); 
-        const chave = document.querySelector('#chave'); 
 
         let valorCampo = '';
+        let id = '';
 
-        function deleteCategoria() {
+        function deleteCategoria(chave) {
             modal.classList.remove('hidden')
+            id = chave;
         }
 
         close.addEventListener('click', (evento) => {
@@ -116,7 +115,8 @@
         })
 
         confirm.addEventListener('click', (evento) => {
-            window.location.href = `/categoria-deletar/${chave.value}`
+            window.location.href = `/categoria-deletar/${id}`
+            id = ''
         })
 
         cancel.addEventListener('click', (evento) => {
@@ -152,7 +152,6 @@
         
         input.addEventListener('change', (evento) => {
             valorCampo += evento.target.value;
-            console.log(valorCampo);
         });
 
       </script>
