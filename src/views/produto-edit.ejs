@@ -8,15 +8,15 @@
     <input type="hidden" name="id" class="border rounded p-2 mb-4 border-slate-300" value=<%= produtoEditado.id %> />
     
     <label>Nome</label>
-    <input type="text" name="nome" class="border rounded p-2 mb-4 border-slate-300" value=<%= produtoEditado.nome %>  />
+    <input type="text" name="nome" class="border outline-none border-gray-300 rounded p-2 mb-4 focus:ring-2 focus:border-blue-200 focus:ring-blue-200 transition duration-300 ease-in-out" value=<%= produtoEditado.nome %>  />
   
     <label>Descrição</label>
-    <textarea maxlength="120" rows="2" cols="20" class="border rounded p-2 mb-4 border-slate-300 resize-none" name="descricao"><%= produtoEditado.descricao.trim() %></textarea>
+    <textarea maxlength="120" rows="2" cols="20" class="border outline-none border-gray-300 rounded p-2 mb-4 focus:ring-2 focus:border-blue-200 focus:ring-blue-200 transition duration-300 ease-in-out resize-none" name="descricao"><%= produtoEditado.descricao.trim() %></textarea>
     
     <label>Preço</label>
-      <input type="text" class="border rounded p-2 mb-4 border-slate-300" name="preco" value=<%= produtoEditado.preco %> />
+      <input type="text" class="border outline-none border-gray-300 rounded p-2 mb-4 focus:ring-2 focus:border-blue-200 focus:ring-blue-200 transition duration-300 ease-in-out" name="preco" value=<%= produtoEditado.preco %> />
 
-    <select name="categoria" class="border rounded p-2 mb-4 border-slate-300">
+    <select name="categoria" class="border outline-none border-gray-300 rounded p-2 mb-4 focus:ring-2 focus:border-blue-200 focus:ring-blue-200 transition duration-300 ease-in-out">
       <% categorias.forEach(element => { %>
         <option 
           <%= element.valor === produtoEditado.categoria ? 'selected' : ''%> 

@@ -23,9 +23,15 @@ routerCategoria.get("/categoria-deletar/:chave", (req, res) => {
 });
 
 routerCategoria.post("/categoria-salvar", (req, res) => {
-  const { chave, valor } = req.body;
+  const { chave, valor, ...rest } = req.body;
+  let camposCustomizados = [];
   let message = "Categoria salva com sucesso!";
-  addCategoria({ chave, valor });
+
+  for (let item in rest) {
+    camposCustomizados.push(item);
+  }
+
+  addCategoria({ chave, valor, camposCustomizados });
 
   req.flash("categoria-edit", message);
   res.redirect("/categorias");

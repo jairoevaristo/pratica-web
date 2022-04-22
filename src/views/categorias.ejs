@@ -3,52 +3,144 @@
 
 <body>
     <%- include('partials/header')  -%>
-    
-    <form method="POST" action="/categoria-salvar" class="flex justify-center py-4 px-20 border rounded-sm flex-col w-full m-auto max-w-4xl mb-5">
+    <div class="w-full m-auto max-w-4xl mb-5">
+        <span class="text-green-700 p-4 rounded font-light text-2xl"><%=message%></span>
+    </div>
+    <form id="form" method="POST" action="/categoria-salvar" class="flex justify-center py-4 px-20 border rounded-sm flex-col w-full m-auto max-w-4xl mb-5">
         <h1 class="font-bold text-slate-700 text-2xl mb-4">Categorias</h1>
         <label>Chave</label>
-        <input class="border rounded p-2 mb-4 border-slate-300" name="chave" text="text" />
+        <input class="border outline-none border-gray-300 rounded p-2 mb-4 focus:ring-2 focus:border-blue-200 focus:ring-blue-200 transition duration-300 ease-in-out" name="chave" text="text" />
         
         <label>Valor</label>
-        <input class="border rounded p-2 mb-4 border-slate-300" name="valor" text="text" />
+        <input class="border outline-none border-gray-300 rounded p-2 mb-4 focus:ring-2 focus:border-blue-200 focus:ring-blue-200 transition duration-300 ease-in-out" name="valor" text="text" />
 
-        <div class="flex items-center">
-            <input class="border rounded p-2 border-slate-300" name="valor" text="text" />
-            <input type="button" value="Adicionar" class="px-6 py-2 rounded cursor-pointer bg-slate-700 text-slate-200" />
+        <label>Campos Customizados</label>
+        <div class="flex items-center mb-4">
+            <input id="input" class="border outline-none border-gray-300 rounded p-2 focus:ring-2 focus:border-blue-200 focus:ring-blue-200 transition duration-300 ease-in-out" text="text" />
+            <button id="button-add" class="ml-2 px-6 py-2 rounded cursor-pointer bg-slate-700 text-slate-200">Adicionar</button>
         </div>
 
+        <div id="content" class="flex flex-col"></div>
+
         <div class="flex justify-center w-full">
-            <input type="submit" value="Salvar" class="mt-4 px-6 py-2 rounded cursor-pointer bg-slate-700 text-slate-200" />
+            <input id="save" type="submit" value="Salvar" class="mt-4 px-6 py-2 rounded cursor-pointer bg-slate-700 text-slate-200" />
         </div>
     </form>
     <div class="m-auto max-w-6xl flex jusitify-center flex-col">
-        <table class="hover:border-collapse table-auto border-collapse border border-slate-100 border-collapse mt-7" border="">
+        <table class="mb-8 hover:border-collapse table-auto border border-gray-200 mt-4">
             <thead>
             <tr>
-              <th class="py-2 px-8 bg-gray-200 text-zinc-600 font-normal">Chave</th>
-              <th class="py-2 px-8 bg-gray-200 text-zinc-600 font-normal">Valor</th>
-              <th class="py-2 px-8 bg-gray-200 text-zinc-600 font-normal">Deletar</th>
+              <th class="py-2 px-8 border-b border-gray-200 bg-gray-100 text-zinc-600 font-normal">Chave</th>
+              <th class="py-2 px-8 border-b border-gray-200 bg-gray-100 text-zinc-600 font-normal">Valor</th>
+              <th class="py-2 px-8 border-b border-gray-200 bg-gray-100 text-zinc-600 font-normal">Campos customizados</th>
+              <th class="py-2 px-8 border-b border-gray-200 bg-gray-100 text-zinc-600 font-normal">Deletar</th>
             </tr>
         </thead>
             <tbody class="text-center w-5">
-            <% categorias.forEach(element => { %> <tr>
-             <td class="font-normal text-lg py-3 px-3">
-                 <%= element.chave %> 
+            <% categorias.forEach(({ chave, valor, camposCustomizados }) => { %> 
+            <input id="chave" type="hidden" value=<%= chave %> />
+            <tr>
+             <td class="font-normal border-b border-gray-200 text-lg py-3 px-3">
+                 <%= chave %> 
              </td>
-               <td class="font-normal text-lg py-3 px-3">
-                <%= element.valor %> 
+               <td class="font-normal border-b border-gray-200 text-lg py-3 px-3">
+                <%= valor %> 
              </td>
-             <td> 
-                <a href=<%=`/categoria-deletar/${element.chave}` %>>
+
+             <td class="font-normal border-b border-gray-200 text-lg py-3 px-3 o">
+                <% camposCustomizados?.forEach((element, index) => { %>
+                    <p><%= element %></p> 
+                <% }) %>
+             </td>
+             <td class="border-b border-gray-200"> 
+                <button id="button-delete">
                     <div class="flex justify-center">
                         <svg style="width: 22px;" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                     </div>
-                </a>
+                </button>
              </td>
             </tr>
             <% }) %>
         
         </tbody>
-      </table> 
+      </table>
+
+      
+
+    <div class="container mx-auto px-4">
+        <div id="popup-modal" tabindex="-1" class="hidden " aria-hidden="true">
+            <div class="relative p-4 w-full max-w-md h-full md:h-auto">
+        
+                    <div class="p-6 pt-0 text-center">
+                        <h3 class="mb-5 text-lg font-normal text-gray-400">Deseja realmente deletar essa categoria?</h3>
+                        <button id="confirm-delete" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                            Sim, eu quero.
+                        </button>
+                        <button id="cancel-delete" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+      <script>
+        const form = document.querySelector('#form');
+        const button = document.querySelector('#button-add');
+        const input = document.querySelector('#input');
+        const content = document.querySelector('#content'); 
+        const save = document.querySelector('#save'); 
+        const modal = document.querySelector('#popup-modal');  
+        const confirm = document.querySelector('#confirm-delete');  
+        const cancel = document.querySelector('#cancel-delete');  
+        const buttonDelete = document.querySelector('#button-delete'); 
+        const chave = document.querySelector('#chave'); 
+
+        let valorCampo = '';
+
+        buttonDelete.addEventListener('click', (evento) => {
+            modal.classList.remove('hidden')
+        })
+
+        confirm.addEventListener('click', (evento) => {
+            window.location.href = `/categoria-deletar/${chave.value}`
+        })
+
+        cancel.addEventListener('click', (evento) => {
+            modal.classList.add('hidden')
+        })
+
+        form.addEventListener('submit', (evento) => {
+            evento.preventDefault()
+        })
+
+        save.addEventListener('click', (evento) => {
+            form.submit();
+        })
+
+
+        button.addEventListener('click', () => {
+            if (!valorCampo) {
+                return;
+            }
+
+            let field = document.createElement('input');
+            const format = valorCampo.replace(/\s/g, '-');
+            field.type = 'text';
+            field.name=`${format}`
+            field.value=`${valorCampo}`
+            field.readOnly = true
+            field.className="bg-white px-4 outline-none"
+
+            content.append(field);
+            input.value = ''
+            valorCampo = '';
+        })
+        
+        input.addEventListener('change', (evento) => {
+            valorCampo += evento.target.value;
+        });
+
+      </script>
 </body>
 </html>
