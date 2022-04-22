@@ -6,7 +6,7 @@
     <div class="w-full m-auto max-w-4xl mb-5">
         <span class="text-green-700 p-4 rounded font-light text-2xl"><%=message%></span>
     </div>
-    <form method="POST" action="/categoria-salvar" class="flex justify-center py-4 px-20 border rounded-sm flex-col w-full m-auto max-w-4xl mb-5">
+    <form id="form" method="POST" action="/categoria-salvar" class="flex justify-center py-4 px-20 border rounded-sm flex-col w-full m-auto max-w-4xl mb-5">
         <h1 class="font-bold text-slate-700 text-2xl mb-4">Categorias</h1>
         <label>Chave</label>
         <input class="border outline-none border-gray-300 rounded p-2 mb-4 focus:ring-2 focus:border-blue-200 focus:ring-blue-200 transition duration-300 ease-in-out" name="chave" text="text" />
@@ -14,29 +14,45 @@
         <label>Valor</label>
         <input class="border outline-none border-gray-300 rounded p-2 mb-4 focus:ring-2 focus:border-blue-200 focus:ring-blue-200 transition duration-300 ease-in-out" name="valor" text="text" />
 
+        <label>Campos Customizados</label>
+        <div class="flex items-center mb-4">
+            <input id="input" class="border outline-none border-gray-300 rounded p-2 focus:ring-2 focus:border-blue-200 focus:ring-blue-200 transition duration-300 ease-in-out" text="text" />
+            <button id="button-add" class="ml-2 px-6 py-2 rounded cursor-pointer bg-slate-700 text-slate-200">Adicionar</button>
+        </div>
+
+        <div id="content" class="flex flex-col"></div>
+
         <div class="flex justify-center w-full">
-            <input type="submit" value="Salvar" class="mt-4 px-6 py-2 rounded cursor-pointer bg-slate-700 text-slate-200" />
-          </div>
+            <input id="save" type="submit" value="Salvar" class="mt-4 px-6 py-2 rounded cursor-pointer bg-slate-700 text-slate-200" />
+        </div>
     </form>
     <div class="m-auto max-w-6xl flex jusitify-center flex-col">
-        <table class="hover:border-collapse table-auto border-collapse border border-slate-100 border-collapse mt-7">
+        <table class="mb-8 hover:border-collapse table-auto border border-gray-200 mt-4">
             <thead>
             <tr>
-              <th class="py-2 px-8 bg-gray-200 text-zinc-600 font-normal">Chave</th>
-              <th class="py-2 px-8 bg-gray-200 text-zinc-600 font-normal">Valor</th>
-              <th class="py-2 px-8 bg-gray-200 text-zinc-600 font-normal">Deletar</th>
+              <th class="py-2 px-8 border-b border-gray-200 bg-gray-100 text-zinc-600 font-normal">Chave</th>
+              <th class="py-2 px-8 border-b border-gray-200 bg-gray-100 text-zinc-600 font-normal">Valor</th>
+              <th class="py-2 px-8 border-b border-gray-200 bg-gray-100 text-zinc-600 font-normal">Campos customizados</th>
+              <th class="py-2 px-8 border-b border-gray-200 bg-gray-100 text-zinc-600 font-normal">Deletar</th>
             </tr>
         </thead>
             <tbody class="text-center w-5">
-            <% categorias.forEach(element => { %> <tr>
-             <td class="font-normal text-lg py-3 px-3">
-                 <%= element.chave %> 
+            <% categorias.forEach(({ chave, valor, camposCustomizados }) => { %> 
+            <tr>
+             <td class="font-normal border-b border-gray-200 text-lg py-3 px-3">
+                 <%= chave %> 
              </td>
-               <td class="font-normal text-lg py-3 px-3">
-                <%= element.valor %> 
+               <td class="font-normal border-b border-gray-200 text-lg py-3 px-3">
+                <%= valor %> 
              </td>
-             <td> 
-                <a href=<%=`/categoria-deletar/${element.chave}` %>>
+
+             <td class="font-normal border-b border-gray-200 text-lg py-3 px-3 o">
+                <% camposCustomizados?.forEach((element, index) => { %>
+                    <p><%= element %></p> 
+                <% }) %>
+             </td>
+             <td class="border-b border-gray-200"> 
+                <a href=<%=`/categoria-deletar/${chave}` %>>
                     <div class="flex justify-center">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                     </div>
@@ -47,5 +63,48 @@
         
         </tbody>
       </table> 
+
+      <script>
+        const form = document.querySelector('#form');
+        const button = document.querySelector('#button-add');
+        const input = document.querySelector('#input');
+        const content = document.querySelector('#content'); 
+        const save = document.querySelector('#save'); 
+
+        let valorCampo = '';
+
+        form.addEventListener('submit', (evento) => {
+            evento.preventDefault()
+        })
+
+        save.addEventListener('click', (evento) => {
+            form.submit();
+        })
+
+
+        button.addEventListener('click', () => {
+            if (!valorCampo) {
+                return;
+            }
+
+            let field = document.createElement('input');
+            const format = valorCampo.replace(/\s/g, '-');
+            field.type = 'text';
+            field.name=`${format}`
+            field.value=`${valorCampo}`
+            field.readOnly = true
+            field.className="bg-white px-4 outline-none"
+
+            content.append(field);
+            input.value = ''
+            valorCampo = '';
+        })
+        
+        input.addEventListener('change', (evento) => {
+            valorCampo += evento.target.value;
+            console.log(valorCampo);
+        });
+
+      </script>
 </body>
 </html>

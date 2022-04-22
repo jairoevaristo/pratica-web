@@ -4,8 +4,8 @@ let categorias = [
   { chave: "3", valor: "eletrodomesticos" },
 ];
 
-function addCategoria({ valor, chave }) {
-  categorias.push({ chave, valor });
+function addCategoria({ valor, chave, camposCustomizados }) {
+  categorias.push({ chave, valor, camposCustomizados });
 }
 
 function deleteCategoria(chave) {
