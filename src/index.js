@@ -26,7 +26,7 @@ app.set("view engine", "ejs");
 app.set("views", "./src/views");
 app.use(express.static(__dirname + "../../public"));
 
-app.get("/home", (req, res) => {
+app.get("/", (req, res) => {
   res.render("home", { title: "Loja de Produtos" });
 });
 
