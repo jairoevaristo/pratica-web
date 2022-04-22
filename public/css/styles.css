@@ -10,3 +10,8 @@
   z-index: 9999;
   position: fixed;
 }
+
+.input {
+  border: 0;
+  outline: none;
+}
