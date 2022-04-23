@@ -18,10 +18,12 @@ routerProduto.get("/produtos", (req, res) => {
 
 routerProduto.get("/produto-editar", (req, res) => {
   const { id } = req.query;
+  const { camposCustomizados, categorias } = getCategoria();
 
   res.render("produto-edit", {
     produtoEditado: findProdutoById(id),
-    categorias: getCategoria(),
+    categorias,
+    camposCustomizados,
   });
 });
 
@@ -36,14 +38,25 @@ routerProduto.post("/produto-editar", (req, res) => {
 });
 
 routerProduto.get("/produto-criar", (req, res) => {
-  res.render("produto-criar", { categorias: getCategoria() });
+  const { camposCustomizados, categorias } = getCategoria();
+
+  res.render("produto-criar", {
+    categorias,
+    camposCustomizados,
+  });
 });
 
 routerProduto.post("/produto-cadastrar", (req, res) => {
-  const { nome, descricao, preco, categoria } = req.body;
+  const { nome, descricao, preco, categoria, ...rest } = req.body;
+  let camposCustomizados = [];
   let message = "Produto cadastrado com sucesso!";
 
-  addProduto({ nome, descricao, preco, categoria });
+  for (let item in rest) {
+    let name = item;
+    camposCustomizados.push({ [name]: rest[item] });
+  }
+
+  addProduto({ nome, descricao, preco, categoria, camposCustomizados });
   req.flash("produto-save", message);
 
   res.redirect("/produtos");

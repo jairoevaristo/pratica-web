@@ -6,6 +6,7 @@ let categorias = [
 
 function addCategoria({ valor, chave, camposCustomizados }) {
   categorias.push({ chave, valor, camposCustomizados });
+  console.log("save", categorias);
 }
 
 function deleteCategoria(chave) {
@@ -15,7 +16,18 @@ function deleteCategoria(chave) {
 }
 
 function getCategoria() {
-  return categorias;
+  const camposCustomizados = [];
+
+  categorias.forEach((item) =>
+    item.camposCustomizados?.forEach((element) => {
+      camposCustomizados.push(element);
+    })
+  );
+
+  return {
+    categorias,
+    camposCustomizados,
+  };
 }
 
 module.exports = { addCategoria, getCategoria, deleteCategoria };

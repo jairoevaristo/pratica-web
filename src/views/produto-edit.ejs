@@ -16,7 +16,7 @@
     <label>Preço</label>
       <input type="text" class="border outline-none border-gray-300 rounded p-2 mb-4 focus:ring-2 focus:border-blue-200 focus:ring-blue-200 transition duration-300 ease-in-out" name="preco" value=<%= produtoEditado.preco %> />
 
-    <select name="categoria" class="border outline-none border-gray-300 rounded p-2 mb-4 focus:ring-2 focus:border-blue-200 focus:ring-blue-200 transition duration-300 ease-in-out">
+    <select id="select-categoria" name="categoria" class="border outline-none border-gray-300 rounded p-2 mb-4 focus:ring-2 focus:border-blue-200 focus:ring-blue-200 transition duration-300 ease-in-out">
       <% categorias.forEach(element => { %>
         <option 
           <%= element.valor === produtoEditado.categoria ? 'selected' : ''%> 
@@ -25,12 +25,53 @@
           <%= element.valor %>
         </option>
       <% }) %>
+      <input id="categorias-input" type="hidden" value=<%= camposCustomizados%> />
     </select>
+
+    <div id="campos-customizados"></div>
   
     <div class="flex justify-center w-full">
       <a href="/produtos" class="mt-4 px-6 py-2 rounded cursor-pointer border border-slate-700 text-slate-700 hover:bg-slate-700 hover:text-slate-200 mr-4 transition-all">Voltar</a>
       <input type="submit" value="Editar" class="mt-4 px-6 py-2 rounded cursor-pointer bg-slate-700 text-slate-200" />
     </div>
   </form>
+
+  <script>
+    const selectCategoria = document.querySelector("#select-categoria");
+    const camposCustomizado = document.querySelector("#campos-customizados");
+    const categoriasInput = document.querySelector("#categorias-input");
+
+    modarCampos();
+
+    selectCategoria.addEventListener('change', (evento) => {
+      modarCampos()
+    })
+
+    function modarCampos() {
+      const campos = categoriasInput.value.split(',');
+
+      campos.forEach(item => {
+        let input = document.createElement('input');
+        let wrapper = document.createElement('div');
+        let label = document.createElement('label');
+        let camposValor = item.replace(/\-/g, ' ');
+
+        label.textContent = camposValor;
+
+
+        input.type = 'text';
+        input.value = item
+        input.name = item;
+        input.className="ml-3 border outline-none border-gray-300 rounded p-2 mb-4 focus:ring-2 focus:border-blue-200 focus:ring-blue-200 transition duration-300 ease-in-out"
+        
+        label.append(input)
+
+        camposCustomizado.className = 'flex flex-col border border-gray-300 p-4'
+        wrapper.appendChild(label)
+        
+        camposCustomizado.append(wrapper);
+      })
+    }
+  </script>
 </body>
 </html>

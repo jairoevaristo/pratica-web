@@ -5,16 +5,58 @@
   <textarea class="border outline-none border-gray-300 rounded p-2 mb-4 focus:ring-2 focus:border-blue-200 focus:ring-blue-200 transition duration-300 ease-in-out" maxlength="120" name="descricao" ></textarea>
 
 <label>Preço</label>
-  <input class="border outline-none border-gray-300 rounded p-2 mb-4 focus:ring-2 focus:border-blue-200 focus:ring-blue-200 transition duration-300 ease-in-out" type="text" name="preco" class="border rounded p-2" />
+  <input class="border outline-none border-gray-300 rounded p-2 mb-4 focus:ring-2 focus:border-blue-200 focus:ring-blue-200 transition duration-300 ease-in-out" type="text" name="preco" />
 
   <label>Categoria</label>
-  <select name="categoria" class="border outline-none border-gray-300 rounded p-2 mb-4 focus:ring-2 focus:border-blue-200 focus:ring-blue-200 transition duration-300 ease-in-out">
+  <select id="select-categoria" name="categoria" class="border outline-none border-gray-300 rounded p-2 mb-4 focus:ring-2 focus:border-blue-200 focus:ring-blue-200 transition duration-300 ease-in-out">
     <% categorias.forEach(element => { %>
       <option class="h-20" value=<%= element.valor %>><%= element.valor %></option>
     <% }) %>
+
+    <input id="categorias-input" type="hidden" value=<%= camposCustomizados%> />
   </select>
+
+  <div id="campos-customizados"></div>
 
   <div class="flex justify-center w-full">
     <a href="/produtos" class="mt-4 px-6 py-2 rounded cursor-pointer border border-slate-700 text-slate-700 hover:bg-slate-700 hover:text-slate-200 mr-4 transition-all">Voltar</a>
     <input type="submit" value="Salvar" class="mt-4 px-6 py-2 rounded cursor-pointer bg-slate-700 text-slate-200" />
   </div>
+
+  <script>
+    const selectCategoria = document.querySelector("#select-categoria");
+    const camposCustomizado = document.querySelector("#campos-customizados");
+    const categoriasInput = document.querySelector("#categorias-input");
+    const formatCampos = JSON.parse(categoriasInput.value);
+    const campos = [formatCampos]
+
+
+    const filter = (value) => {
+      return campos.filter(item => item === value)
+    };
+
+    
+    selectCategoria.addEventListener('change', (evento) => {
+
+    
+
+      campos.forEach(item => {
+        let input = document.createElement('input');
+        let wrapper = document.createElement('div');
+        let label = document.createElement('label');
+
+        label.textContent = item
+
+        input.type = 'text';
+        input.name = item;
+        input.className="ml-3 border outline-none border-gray-300 rounded p-2 mb-4 focus:ring-2 focus:border-blue-200 focus:ring-blue-200 transition duration-300 ease-in-out"
+        
+        label.append(input)
+
+        camposCustomizado.className = 'flex flex-col border border-gray-300 p-4'
+        wrapper.appendChild(label)
+        
+        camposCustomizado.append(wrapper);
+      })
+    })
+  </script>

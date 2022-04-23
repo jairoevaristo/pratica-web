@@ -2,9 +2,16 @@ const { randomUUID } = require("crypto");
 
 let produtos = [];
 
-function addProduto({ nome, descricao, preco, categoria }) {
+function addProduto({ nome, descricao, preco, categoria, camposCustomizados }) {
   const id = randomUUID();
-  produtos.push({ id, nome, descricao: descricao.trim(), preco, categoria });
+  produtos.push({
+    id,
+    nome,
+    descricao: descricao.trim(),
+    preco,
+    categoria,
+    camposCustomizados,
+  });
 }
 
 function editProduto({ id, nome, descricao, preco, categoria }) {

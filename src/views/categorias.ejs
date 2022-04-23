@@ -37,7 +37,7 @@
             </tr>
         </thead>
             <tbody class="text-center w-5">
-            <% categorias.forEach(({ chave, valor, camposCustomizados }) => { %> 
+            <% categorias.forEach(({ chave, valor }) => { %> 
             <tr>
              <td class="font-normal border-b border-gray-200 text-lg py-3 px-3">
                  <%= chave %> 
@@ -47,8 +47,10 @@
              </td>
 
              <td class="font-normal border-b border-gray-200 text-lg py-3 px-3 o">
-                <% camposCustomizados?.forEach((element, index) => { %>
-                    <p><%= element %></p> 
+                <% camposCustomizados?.forEach((element) => { %>
+                    <% element.campos?.forEach((item) => { %>
+                        <p><%= element.valor === valor ? item : ''%> </p> 
+                    <% }) %> 
                 <% }) %>
              </td>
            
@@ -144,6 +146,7 @@
             field.value=`${valorCampo}`
             field.readOnly = true
             field.className="bg-white px-4 outline-none"
+
 
             content.append(field);
             input.value = ''
