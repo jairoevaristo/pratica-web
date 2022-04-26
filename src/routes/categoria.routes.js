@@ -31,8 +31,6 @@ routerCategoria.post("/categoria-salvar", (req, res) => {
 
   let message = "Categoria salva com sucesso!";
 
-  console.log("rest", rest);
-
   for (let item in rest) {
     campos.push(item);
   }

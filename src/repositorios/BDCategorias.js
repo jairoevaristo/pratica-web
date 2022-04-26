@@ -6,7 +6,6 @@ let categorias = [
 
 function addCategoria({ valor, chave, camposCustomizados }) {
   categorias.push({ chave, valor, camposCustomizados });
-  console.log("save", categorias);
 }
 
 function deleteCategoria(chave) {

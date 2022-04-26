@@ -18,20 +18,27 @@ routerProduto.get("/produtos", (req, res) => {
 
 routerProduto.get("/produto-editar", (req, res) => {
   const { id } = req.query;
-  const { camposCustomizados, categorias } = getCategoria();
+  const { categorias, camposCustomizados } = getCategoria();
 
   res.render("produto-edit", {
     produtoEditado: findProdutoById(id),
     categorias,
-    camposCustomizados,
+    camposCustomizados: JSON.stringify(findProdutoById(id).camposCustomizados),
+    camposCustom: JSON.stringify(camposCustomizados),
   });
 });
 
 routerProduto.post("/produto-editar", (req, res) => {
-  const { id, nome, descricao, preco, categoria } = req.body;
+  const { id, nome, descricao, preco, categoria, ...rest } = req.body;
+  let camposCustomizados = [];
   let message = "Produto editado com sucesso!";
 
-  editProduto({ id, nome, descricao, preco, categoria });
+  for (let item in rest) {
+    let name = item;
+    camposCustomizados.push({ [name]: rest[item] });
+  }
+
+  editProduto({ id, nome, descricao, preco, categoria, camposCustomizados });
 
   req.flash("produto-save", message);
   res.redirect("/produtos");
@@ -42,7 +49,7 @@ routerProduto.get("/produto-criar", (req, res) => {
 
   res.render("produto-criar", {
     categorias,
-    camposCustomizados,
+    camposCustomizados: JSON.stringify(camposCustomizados),
   });
 });
 

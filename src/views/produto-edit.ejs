@@ -25,7 +25,9 @@
           <%= element.valor %>
         </option>
       <% }) %>
-      <input id="categorias-input" type="hidden" value=<%= camposCustomizados%> />
+      <input id="categorias-input" type="hidden" value=<%= camposCustomizados %> />
+    <input id="categorias-input-custom" type="hidden" value=<%= camposCustom %> />
+
     </select>
 
     <div id="campos-customizados"></div>
@@ -40,38 +42,69 @@
     const selectCategoria = document.querySelector("#select-categoria");
     const camposCustomizado = document.querySelector("#campos-customizados");
     const categoriasInput = document.querySelector("#categorias-input");
+    const campos = JSON.parse(categoriasInput.value);
 
-    modarCampos();
+    const categoriasInputCustom = document.querySelector("#categorias-input-custom");
+    const camposCustom = JSON.parse(categoriasInputCustom.value);
 
+    window.onload = function() {
+      mostraCamposCustomizados();
+    };
+
+    const filter = (value) => {
+      return camposCustom.filter(item => item.valor === value)
+    };
+    
     selectCategoria.addEventListener('change', (evento) => {
-      modarCampos()
+      if (filter(evento.target.value).length <= 0) {
+        camposCustomizado.className = 'hidden';
+        return;
+      }
+      
+      filter(evento.target.value).forEach(item => {
+        camposCustomizado.innerHTML = '';
+        item.campos.forEach(campo => {
+          let input = document.createElement('input');
+          let wrapper = document.createElement('div');
+          let label = document.createElement('label');
+        
+          label.textContent = campo.replace(/\-/g, ' ');
+          input.type = 'text';
+          input.name = campo;
+          input.className="ml-3 border outline-none border-gray-300 rounded p-2 mb-4 focus:ring-2 focus:border-blue-200 focus:ring-blue-200 transition duration-300 ease-in-out"
+          
+          label.append(input)
+          camposCustomizado.className = 'flex flex-col border border-gray-300 p-4'
+          wrapper.appendChild(label)
+          
+          camposCustomizado.appendChild(wrapper);
+        })
+      })
     })
 
-    function modarCampos() {
-      const campos = categoriasInput.value.split(',');
-
-      campos.forEach(item => {
+    function mostraCamposCustomizados() {
+     campos.forEach(item => {
+      for(let key in item) {
         let input = document.createElement('input');
         let wrapper = document.createElement('div');
         let label = document.createElement('label');
-        let camposValor = item.replace(/\-/g, ' ');
 
-        label.textContent = camposValor;
-
-
+        label.textContent = key
         input.type = 'text';
-        input.value = item
-        input.name = item;
+        input.value = item[key]
+        input.name = item[key];
         input.className="ml-3 border outline-none border-gray-300 rounded p-2 mb-4 focus:ring-2 focus:border-blue-200 focus:ring-blue-200 transition duration-300 ease-in-out"
-        
+
         label.append(input)
 
         camposCustomizado.className = 'flex flex-col border border-gray-300 p-4'
         wrapper.appendChild(label)
-        
+
         camposCustomizado.append(wrapper);
-      })
+        }
+     })
     }
+
   </script>
 </body>
 </html>
