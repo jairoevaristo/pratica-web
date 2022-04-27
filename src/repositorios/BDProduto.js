@@ -1,12 +1,26 @@
 let produtos = [];
 let id = 0;
 
-function addProduto({ nome, descricao, preco, categoria }) {
+function addProduto({ nome, descricao, preco, categoria, camposCustomizados }) {
   id += 1;
-  produtos.push({ id, nome, descricao: descricao.trim(), preco, categoria });
+  produtos.push({
+    id,
+    nome,
+    descricao: descricao.trim(),
+    preco,
+    categoria,
+    camposCustomizados,
+  });
 }
 
-function editProduto({ id, nome, descricao, preco, categoria }) {
+function editProduto({
+  id,
+  nome,
+  descricao,
+  preco,
+  categoria,
+  camposCustomizados,
+}) {
   const produto = produtos.map((item) => {
     if (item.id === Number(id)) {
       return {
@@ -15,6 +29,7 @@ function editProduto({ id, nome, descricao, preco, categoria }) {
         descricao: descricao.trim() || item.descricao.trim(),
         preco: preco || item.preco,
         categoria: categoria || item.categoria,
+        camposCustomizados: camposCustomizados || item.camposCustomizados,
       };
     }
 

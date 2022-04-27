@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-
    <%- include('partials/header')  -%> 
    <div class="m-auto max-w-7xl flex jusitify-center flex-col">
-   
-   
+       <div id="campos-produto" class="flex jusitify-center flex-col"></div>
+    <div>
+        <span class="text-green-700 p-4 rounded font-light text-2xl"><%=message%></span>
+    </div>
           <span class="font-bold text-slate-700 text-2xl mb-4">
         <%= produtos.length <= 0 ? 'Nenhum produto cadastrado' : ''%>
        </span>
@@ -24,7 +25,9 @@
             <% produtos.forEach(element => { %> 
             <tr>
                 <td class="font-normal text-lg py-3 px-3">
-                    <%= element.id %> 
+                    <button class="outline-none border-0 button-class" type="button" id="table-id" onclick="mostarCampos('<%= element.id%>')" >
+                        <%= element.id %> 
+                    </button>
                 </td>
                 <td class="font-normal text-lg">
                     <%= element.nome %> 
@@ -56,6 +59,86 @@
             Cadastrar produto
         </a>
     </button>
+
+    <script>
+        const tableId = document.querySelector('#table-id');
+        const camposProduto = document.querySelector('#campos-produto');
+        const dataTable = '<%- JSON.stringify(produtos)%>';
+
+        let isHidden = false;
+
+        function mostarCampos(id) {
+            camposProduto.innerHTML = '';
+            isHidden = !isHidden;
+            const data = JSON.parse(dataTable).find(item => item.id === Number(id));
+            montarCampo(data)
+        }
+        
+        function montarCampo(dataTable) {
+            if (isHidden) {
+                let wrapper = document.createElement('div');
+                wrapper.className = 'flex jusitify-center flex-col'
+                
+                let inputId = document.createElement('input');
+                let labelId = document.createElement('label');
+
+                let inputNome = document.createElement('input');
+                let labelNome = document.createElement('label');
+                
+                let inputDesc = document.createElement('input');
+                let labelDesc = document.createElement('label');
+
+                let inputCat = document.createElement('input');
+                let labelCat = document.createElement('label');
+
+                let inputPre = document.createElement('input');
+                let labelPre = document.createElement('label');
+
+                labelId.textContent = 'ID: ';
+                inputId.value = dataTable.id;
+                inputId.readOnly = true;
+                inputId.className = 'border outline-none border-gray-300 rounded p-2 mb-4 focus:ring-2 focus:border-blue-200 focus:ring-blue-200 transition duration-300 ease-in-out'
+
+                labelId.append(inputId);
+                wrapper.appendChild(labelId)
+
+                labelNome.textContent = 'Nome: ';
+                inputNome.value = dataTable.nome;
+                inputNome.readOnly = true;
+                inputNome.className = 'border outline-none border-gray-300 rounded p-2 mb-4 focus:ring-2 focus:border-blue-200 focus:ring-blue-200 transition duration-300 ease-in-out'
+
+                labelNome.append(inputNome);
+                wrapper.appendChild(labelNome)
+
+                labelDesc.textContent = 'Descrição: ';
+                inputDesc.value = dataTable.descricao;
+                inputDesc.readOnly = true;
+                inputDesc.className = 'border outline-none border-gray-300 rounded p-2 mb-4 focus:ring-2 focus:border-blue-200 focus:ring-blue-200 transition duration-300 ease-in-out'
+
+                labelDesc.append(inputDesc);
+                wrapper.appendChild(labelDesc)
+
+                labelCat.textContent = 'Categoria: ';
+                inputCat.value = dataTable.categoria;
+                inputCat.readOnly = true;
+                inputCat.className = 'border outline-none border-gray-300 rounded p-2 mb-4 focus:ring-2 focus:border-blue-200 focus:ring-blue-200 transition duration-300 ease-in-out'
+
+                labelCat.append(inputCat);
+                wrapper.appendChild(labelCat)
+
+                labelPre.textContent = 'Preço: ';
+                inputPre.value = dataTable.preco;
+                inputPre.readOnly = true;
+                inputPre.className = 'border outline-none border-gray-300 rounded p-2 mb-4 focus:ring-2 focus:border-blue-200 focus:ring-blue-200 transition duration-300 ease-in-out'
+
+                labelPre.append(inputPre);
+                wrapper.appendChild(labelPre)
+
+                camposProduto.appendChild(wrapper)
+            }
+        }
+
+    </script>
 </div>
 </body>
 </html>

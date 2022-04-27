@@ -15,7 +15,18 @@ function deleteCategoria(chave) {
 }
 
 function getCategoria() {
-  return categorias;
+  const camposCustomizados = [];
+
+  categorias.forEach((item) =>
+    item.camposCustomizados?.forEach((element) => {
+      camposCustomizados.push(element);
+    })
+  );
+
+  return {
+    categorias,
+    camposCustomizados,
+  };
 }
 
 module.exports = { addCategoria, getCategoria, deleteCategoria };

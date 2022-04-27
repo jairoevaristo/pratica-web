@@ -37,7 +37,7 @@
             </tr>
         </thead>
             <tbody class="text-center w-5">
-            <% categorias.forEach(({ chave, valor, camposCustomizados }) => { %> 
+            <% categorias.forEach(({ chave, valor }) => { %> 
             <tr>
              <td class="font-normal border-b border-gray-200 text-lg py-3 px-3">
                  <%= chave %> 
@@ -47,12 +47,15 @@
              </td>
 
              <td class="font-normal border-b border-gray-200 text-lg py-3 px-3 o">
-                <% camposCustomizados?.forEach((element, index) => { %>
-                    <p><%= element %></p> 
+                <% camposCustomizados?.forEach((element) => { %>
+                    <% element.campos?.forEach((item) => { %>
+                        <p><%= element.valor === valor ? item.replace(/\-/g, ' ') : ''%> </p> 
+                    <% }) %> 
                 <% }) %>
              </td>
+           
              <td class="border-b border-gray-200"> 
-                <button type="button" onclick="deleteCategoria(<%= chave%>)" id="button-delete">
+                <button type="button" onclick="deleteCategoria('<%= chave %>')" id="button-delete"=>
                     <div class="flex justify-center">
                         <svg style="width: 22px;" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                     </div>
@@ -64,17 +67,19 @@
         </tbody>
       </table>
 
-      
-
     <div class="container mx-auto px-4">
         <div id="popup-modal" class="hidden flex overflow-y-auto overflow-x-hidden fixed z-50 md:inset-0 h-modal md:h-full justify-center items-center">
             <div class="relative p-4 w-full max-w-md h-full md:h-auto">
         
                 <div class="relative bg-white rounded-lg shadow dark:bg-slate-800">
+                    <div class="flex justify-end p-2">
+                        
+                    </div>
+        
                     <div class="p-6 pt-0 text-center">
                         <h3 class="mb-5 text-lg font-normal text-gray-400">Deseja realmente deletar essa categoria?</h3>
                         <button id="confirm-delete" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
-                            Sim.
+                            Sim
                         </button>
                         <button id="cancel-delete" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancelar</button>
                     </div>
@@ -94,19 +99,18 @@
         const confirm = document.querySelector('#confirm-delete');  
         const cancel = document.querySelector('#cancel-delete');  
         const buttonDelete = document.querySelector('#button-delete'); 
-        const chave = document.querySelector('#chave'); 
 
         let valorCampo = '';
         let id = '';
 
         function deleteCategoria(chave) {
-            modal.classList.remove('hidden');
+            modal.classList.remove('hidden')
             id = chave;
         }
 
         confirm.addEventListener('click', (evento) => {
             window.location.href = `/categoria-deletar/${id}`
-            id = '';
+            id = ''
         })
 
         cancel.addEventListener('click', (evento) => {

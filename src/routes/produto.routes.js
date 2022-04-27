@@ -18,32 +18,54 @@ routerProduto.get("/produtos", (req, res) => {
 
 routerProduto.get("/produto-editar", (req, res) => {
   const { id } = req.query;
+  const { categorias, camposCustomizados } = getCategoria();
+
+  const { camposCustomizados: camposCustomizadosFind } = findProdutoById(id);
 
   res.render("produto-edit", {
     produtoEditado: findProdutoById(id),
-    categorias: getCategoria(),
+    categorias,
+    camposCustomizados: JSON.stringify(camposCustomizadosFind),
+    camposCustom: JSON.stringify(camposCustomizados),
   });
 });
 
 routerProduto.post("/produto-editar", (req, res) => {
-  const { id, nome, descricao, preco, categoria } = req.body;
+  const { id, nome, descricao, preco, categoria, ...rest } = req.body;
+  let camposCustomizados = [];
   let message = "Produto editado com sucesso!";
 
-  editProduto({ id, nome, descricao, preco, categoria });
+  for (let item in rest) {
+    let name = item;
+    camposCustomizados.push({ [name]: rest[item] });
+  }
+
+  editProduto({ id, nome, descricao, preco, categoria, camposCustomizados });
 
   req.flash("produto-save", message);
   res.redirect("/produtos");
 });
 
 routerProduto.get("/produto-criar", (req, res) => {
-  res.render("produto-criar", { categorias: getCategoria() });
+  const { camposCustomizados, categorias } = getCategoria();
+
+  res.render("produto-criar", {
+    categorias,
+    camposCustomizados: JSON.stringify(camposCustomizados),
+  });
 });
 
 routerProduto.post("/produto-cadastrar", (req, res) => {
-  const { nome, descricao, preco, categoria } = req.body;
+  const { nome, descricao, preco, categoria, ...rest } = req.body;
+  let camposCustomizados = [];
   let message = "Produto cadastrado com sucesso!";
 
-  addProduto({ nome, descricao, preco, categoria });
+  for (let item in rest) {
+    let name = item;
+    camposCustomizados.push({ [name]: rest[item] });
+  }
+
+  addProduto({ nome, descricao, preco, categoria, camposCustomizados });
   req.flash("produto-save", message);
 
   res.redirect("/produtos");

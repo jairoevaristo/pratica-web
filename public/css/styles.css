@@ -20,3 +20,15 @@
   display: flex;
   flex-direction: column;
 }
+
+.small {
+  width: 14px;
+  height: 14px;
+}
+
+.button-class {
+  border: 0;
+  outline: none;
+  background-color: #FFFF;
+  cursor: pointer;
+}

@@ -8,8 +8,10 @@ const {
 const routerCategoria = Router();
 
 routerCategoria.get("/categorias", (req, res) => {
+  const { categorias, camposCustomizados } = getCategoria();
+
   const message = req.flash("categoria-edit");
-  res.render("categorias", { categorias: getCategoria(), message });
+  res.render("categorias", { categorias, message, camposCustomizados });
 });
 
 routerCategoria.get("/categoria-deletar/:chave", (req, res) => {
@@ -25,12 +27,15 @@ routerCategoria.get("/categoria-deletar/:chave", (req, res) => {
 routerCategoria.post("/categoria-salvar", (req, res) => {
   const { chave, valor, ...rest } = req.body;
   let camposCustomizados = [];
+  let campos = [];
+
   let message = "Categoria salva com sucesso!";
 
   for (let item in rest) {
-    camposCustomizados.push(item);
+    campos.push(item);
   }
 
+  camposCustomizados.push({ valor, campos });
   addCategoria({ chave, valor, camposCustomizados });
 
   req.flash("categoria-edit", message);
