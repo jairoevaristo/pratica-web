@@ -20,10 +20,12 @@ routerProduto.get("/produto-editar", (req, res) => {
   const { id } = req.query;
   const { categorias, camposCustomizados } = getCategoria();
 
+  const { camposCustomizados: camposCustomizadosFind } = findProdutoById(id);
+
   res.render("produto-edit", {
     produtoEditado: findProdutoById(id),
     categorias,
-    camposCustomizados: JSON.stringify(findProdutoById(id).camposCustomizados),
+    camposCustomizados: JSON.stringify(camposCustomizadosFind),
     camposCustom: JSON.stringify(camposCustomizados),
   });
 });
